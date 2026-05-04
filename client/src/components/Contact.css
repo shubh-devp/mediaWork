@@ -1,0 +1,188 @@
+.contact {
+  padding: var(--section-pad) 0;
+  background: var(--white);
+  border-top: 1px solid var(--hairline);
+}
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: clamp(3rem, 6vw, 7rem);
+  align-items: start;
+}
+
+/* Left */
+.contact-text .section-title { margin-bottom: 1.25rem; }
+.contact-desc {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 3rem;
+}
+
+.contact-meta { display: flex; flex-direction: column; gap: 0; }
+.meta-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.875rem 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.meta-item:first-child { border-top: 1px solid var(--hairline); }
+.meta-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.meta-value { font-size: 0.875rem; color: var(--muted); }
+.meta-value a { color: var(--muted); transition: color 0.2s; }
+.meta-value a:hover { color: var(--gold-dk); }
+
+/* Form */
+.contact-form-wrap {
+  background: var(--paper);
+  border: 1px solid var(--hairline);
+  padding: clamp(2rem, 4vw, 3rem);
+  position: relative;
+}
+
+/* Gold corner accent */
+.contact-form-wrap::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 60px; height: 60px;
+  border-top: 3px solid var(--gold);
+  border-right: 3px solid var(--gold);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.field label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.field input,
+.field select,
+.field textarea {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  padding: 11px 14px;
+  outline: none;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  resize: vertical;
+  border-radius: 0;
+}
+.field input::placeholder,
+.field textarea::placeholder { color: var(--faint); font-size: 0.875rem; }
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(184,147,58,0.1);
+}
+.field input.invalid,
+.field textarea.invalid {
+  border-color: var(--crimson);
+}
+.field-error {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--crimson);
+  letter-spacing: 0.06em;
+}
+.field select { cursor: pointer; }
+
+.form-submit {
+  width: 100%;
+  justify-content: center;
+  padding: 14px 20px;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+}
+
+/* Status */
+.form-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.25rem;
+  border: 1px solid;
+}
+.form-status.success {
+  background: #f0fdf4; color: #166534;
+  border-color: #bbf7d0;
+}
+.form-status.error {
+  background: var(--crimson-lt);
+  color: var(--crimson);
+  border-color: rgba(155,35,53,0.2);
+}
+
+/* Success */
+.form-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem;
+  padding: 3rem 2rem;
+}
+.success-mark {
+  width: 64px; height: 64px;
+  border: 1.5px solid var(--gold);
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  color: var(--gold);
+}
+.form-success h3 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--ink);
+}
+.form-success p { font-size: 0.9rem; color: var(--muted); }
+
+/* Spinner */
+.spinner {
+  width: 14px; height: 14px;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 900px) {
+  .contact-layout { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .contact-form-wrap { padding: 1.75rem; }
+}

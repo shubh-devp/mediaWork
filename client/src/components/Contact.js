@@ -4,6 +4,8 @@ import './Contact.css';
 const SERVICES = ['Film Production', 'Sound Design', 'Music Composition', 'Post Production', 'Other'];
 const EMPTY = { name: '', email: '', service: '', message: '' };
 
+const API_URL = import.meta.env.VITE_API_URL || '';
+
 function validate(form) {
   const e = {};
   if (!form.name.trim()) e.name = 'Name required';
@@ -27,21 +29,46 @@ export default function Contact() {
 
   const handleSubmit = async e => {
     e.preventDefault();
+
     const errs = validate(form);
-    if (Object.keys(errs).length) { setErrors(errs); return; }
+    if (Object.keys(errs).length) {
+      setErrors(errs);
+      return;
+    }
+
     setStatus('loading');
+
     try {
-      const res  = await fetch('/api/contact', {
+      const res = await fetch(`${API_URL}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Something went wrong.');
+
+      const text = await res.text();
+
+      if (!text) {
+        throw new Error("Empty response from server");
+      }
+
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (err) {
+        console.error("Invalid JSON:", text);
+        throw new Error("Server returned invalid response");
+      }
+
+      if (!res.ok) {
+        throw new Error(data.error || "Something went wrong.");
+      }
+
       setStatus('success');
       setApiMsg(data.message);
       setForm(EMPTY);
+
     } catch (err) {
+      console.error("Frontend error:", err);
       setStatus('error');
       setApiMsg(err.message);
     }
@@ -74,65 +101,55 @@ export default function Contact() {
       <div className="container">
         <div className="contact-layout">
           <ContactInfo />
-          <div className="contact-form-wrap reveal" style={{ transitionDelay: '0.12s' }}>
+
+          <div className="contact-form-wrap">
             {status === 'error' && (
-              <div className="form-status error" role="alert">⚠ {apiMsg}</div>
+              <div className="form-status error">⚠ {apiMsg}</div>
             )}
-            <form
-              onSubmit={handleSubmit}
-              noValidate
-              style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}
-            >
+
+            <form onSubmit={handleSubmit} noValidate>
               <div className="form-grid">
                 <div className="field">
-                  <label htmlFor="name">Full Name *</label>
+                  <label>Full Name *</label>
                   <input
-                    id="name" name="name" type="text"
-                    value={form.name} onChange={handleChange}
-                    placeholder="Arjun Sharma"
-                    className={errors.name ? 'invalid' : ''}
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
                   />
                   {errors.name && <span className="field-error">{errors.name}</span>}
                 </div>
+
                 <div className="field">
-                  <label htmlFor="email">Email Address *</label>
+                  <label>Email *</label>
                   <input
-                    id="email" name="email" type="email"
-                    value={form.email} onChange={handleChange}
-                    placeholder="you@company.com"
-                    className={errors.email ? 'invalid' : ''}
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
                   />
                   {errors.email && <span className="field-error">{errors.email}</span>}
                 </div>
               </div>
 
               <div className="field">
-                <label htmlFor="service">Service</label>
-                <select id="service" name="service" value={form.service} onChange={handleChange}>
-                  <option value="">Select a service…</option>
+                <label>Service</label>
+                <select name="service" value={form.service} onChange={handleChange}>
+                  <option value="">Select...</option>
                   {SERVICES.map(s => <option key={s}>{s}</option>)}
                 </select>
               </div>
 
               <div className="field">
-                <label htmlFor="message">Project Details *</label>
+                <label>Message *</label>
                 <textarea
-                  id="message" name="message" rows={5}
-                  value={form.message} onChange={handleChange}
-                  placeholder="Tell us about your project, timeline, and goals…"
-                  className={errors.message ? 'invalid' : ''}
+                  name="message"
+                  value={form.message}
+                  onChange={handleChange}
                 />
                 {errors.message && <span className="field-error">{errors.message}</span>}
               </div>
 
-              <button
-                type="submit"
-                className="btn-primary form-submit"
-                disabled={status === 'loading'}
-              >
-                {status === 'loading'
-                  ? <><span className="spinner" /> Sending…</>
-                  : 'Send Message'}
+              <button disabled={status === 'loading'}>
+                {status === 'loading' ? 'Sending...' : 'Send Message'}
               </button>
             </form>
           </div>
@@ -144,26 +161,9 @@ export default function Contact() {
 
 function ContactInfo() {
   return (
-    <div className="contact-text reveal">
-      <span className="eyebrow">Get in Touch</span>
-      <h2 className="section-title">Let's Work<br /><em>Together</em></h2>
-      <p className="contact-desc">
-        Tell us about your project. We'll get back within one business day 
-        with our thoughts and availability.
-      </p>
-      <div className="contact-meta">
-        {[
-          ['Location', 'Lower Parel, Mumbai 400013'],
-          ['Email',    <a href="mailto:studio@mediaworks.com">studio@mediaworks.com</a>],
-          ['Phone',    <a href="tel:+912268001234">+91 22 6800 1234</a>],
-          ['Hours',    'Mon–Sat, 10 am–7 pm IST'],
-        ].map(([label, value]) => (
-          <div key={label} className="meta-item">
-            <span className="meta-label">{label}</span>
-            <span className="meta-value">{value}</span>
-          </div>
-        ))}
-      </div>
+    <div>
+      <h2>Contact Us</h2>
+      <p>We'll reply within 24 hours.</p>
     </div>
   );
 }

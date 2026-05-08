@@ -21,16 +21,14 @@ export default function About() {
         <div className="about-layout">
           <div className="about-text reveal">
             <span className="eyebrow">About Us</span>
-            <h2 className="section-title">Fourteen Years<br />of <em>Craft</em></h2>
+            <h2 className="section-title">Nine Years<br />of <em>Craft</em></h2>
             <p className="about-body" style={{ marginTop: '1.5rem' }}>
-              MediaWorks Studio was founded in 2010 in Mumbai with a single belief: 
-              <strong> great storytelling deserves great craft.</strong> We are a multidisciplinary 
-              production house where film, sound, and music converge.
+             We established on 1st jan 2017 aiming to do work in Audio-Video Industry
+              in this journey we proudly associated with some well known production houses, and films,
+               music albums and many more things.
             </p>
             <p className="about-body">
-              Every project we deliver carries the mark of careful, deliberate work — 
-              from the first frame to the final mix. We don't just produce content; 
-              we build something lasting.
+              Following services and work done in MediaWorks Studio in Recent Years.
             </p>
             <div className="about-values">
               {values.map((v, i) => (

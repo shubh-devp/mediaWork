@@ -2,7 +2,8 @@ import React, { useState } from 'react'; import './Contact.css';
 const SERVICES = ['Film Production', 'Sound Design', 'Music Composition', 'Post Production', 'Other']; 
 const EMPTY = { name: '', email: '', service: '', message: '' };
 function validate(form) { 
-const e = {}; if (!form.name.trim()) e.name = 'Name required';
+const e = {};
+ if (!form.name.trim()) e.name = 'Name required';
 if (!form.email.trim()) e.email = 'Email required';
 else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Invalid email'; 
 if (!form.message.trim()) e.message = 'Message required'; 
@@ -57,5 +58,8 @@ if (status === 'success') { return ( <section className="contact" id="contact">
 </section> ); } function ContactInfo() { return ( <div className="contact-text reveal"> <span className="eyebrow">Get in Touch</span>
     <h2 className="section-title">Let's Work<br /><em>Together</em></h2>
     <p className="contact-desc"> Tell us about your project. We'll get back within one business day with our thoughts and availability. </p>
-    <div className="contact-meta"> {[ ['Location', 'Lower Parel, Mumbai 400013'], ['Email', <a href="mailto:studio@mediaworks.com">studio@mediaworks.com</a>], ['Phone', <a href="tel:+912268001234">+91 22 6800 1234</a>], ['Hours', 'Mon–Sat, 10 am–7 pm IST'], ].map(([label, value]) => ( <div key={label} className="meta-item"> <span className="meta-label">{label}</span> <span className="meta-value">{value}</span> </div> ))} </div>
+    <div className="contact-meta"> {[ ['Location', 'Office No.105,106,107, Mairah Enclave,Sr.No.144,Canal Road,Near Bharat Petroleum, Warje Pune - 411058.'],
+     ['Email', <a href=" info.mediaworksstudio@gmail.com"> info.mediaworksstudio@gmail.com</a>],
+      ['Phone', <a href="tel:+91 9130000379">+91 9130000379</a>],
+       ['Hours', 'Mon–Sat, 10 am–7 pm IST'], ].map(([label, value]) => ( <div key={label} className="meta-item"> <span className="meta-label">{label}</span> <span className="meta-value">{value}</span> </div> ))} </div>
 </div> ); }

@@ -51,7 +51,8 @@ import Podcast from './components/Podcast';
 import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-
+import FeatureFilms from './components/FeatureFilms';
+import StudioGallery from './components/StudioGallery';
 function CustomCursor() {
   const dotRef  = useRef(null);
   const ringRef = useRef(null);
@@ -109,6 +110,7 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
 
+
   return (
     <>
       <CustomCursor />
@@ -117,8 +119,10 @@ export default function App() {
         <Hero />
         <Services />
         <Work />
+        <FeatureFilms/>
         <About />
         <Podcast />
+        <StudioGallery/>
         <Testimonials />
         <Contact />
       </main>

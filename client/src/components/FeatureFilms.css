@@ -1,0 +1,75 @@
+.films-section {
+  padding: 100px 0;
+  background: #1a1a1a; /* Dark background as seen in image */
+}
+
+.films-header {
+  background: #000;
+  padding: 15px;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.letter-spaced {
+  color: #d4af37; /* Gold tone for the title */
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 1.2rem;
+  text-transform: uppercase;
+}
+
+.films-masonry {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 main columns */
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.film-poster-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #333;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  cursor: pointer;
+}
+
+.film-poster-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Logic for spanning like the screenshot */
+.film-poster-card.feature {
+  grid-row: span 2; /* Large posters take up two vertical slots */
+}
+
+.film-poster-card.stacked {
+  grid-row: span 1; /* Small posters take up one slot */
+}
+
+/* Hover Effect: Soft Glow */
+.poster-glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0,0,0,0.6) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.film-poster-card:hover .poster-glow {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .films-masonry {
+    grid-template-columns: 1fr; /* Stack on mobile */
+  }
+  .letter-spaced {
+    letter-spacing: 0.4rem;
+    font-size: 1rem;
+  }
+}
